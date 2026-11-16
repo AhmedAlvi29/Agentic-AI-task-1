@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { useIsMobile, usePrefersReducedMotion } from "@/hooks/useMediaQuery";
+import { useReady } from "@/components/Providers";
 
 // Three.js + R3F are heavy: load them only on the client, after first paint.
 const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
@@ -20,6 +21,7 @@ export default function HeroCanvas() {
   const wrap = useRef<HTMLDivElement>(null);
   const [supported, setSupported] = useState(false);
   const [inView, setInView] = useState(true);
+  const ready = useReady();
   const mobile = useIsMobile();
   const reduced = usePrefersReducedMotion();
 
@@ -40,7 +42,7 @@ export default function HeroCanvas() {
 
   return (
     <div ref={wrap} aria-hidden className="pointer-events-none absolute inset-0">
-      {supported && <HeroScene active={inView} mobile={mobile} reduced={reduced} />}
+      {supported && ready && <HeroScene active={inView} mobile={mobile} reduced={reduced} />}
     </div>
   );
 }

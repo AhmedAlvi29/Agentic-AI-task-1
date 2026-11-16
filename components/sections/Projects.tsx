@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { ExternalLink } from "lucide-react";
-import { SiGithub } from "react-icons/si";
+import { SiGithub } from "@/components/ui/Icons";
 import { gsap } from "@/lib/gsap";
 import { projects } from "@/lib/data";
 import { usePrefersReducedMotion } from "@/hooks/useMediaQuery";

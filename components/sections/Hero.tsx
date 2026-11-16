@@ -69,8 +69,8 @@ export default function Hero() {
     if (reduced || !ready) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      tl.to(".h-line", { yPercent: 0, rotate: 0, duration: 1.3, stagger: 0.11 })
-        .to("[data-hero]", { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, "-=0.9");
+      tl.to(".h-line", { yPercent: 0, rotate: 0, duration: 0.8, stagger: 0.06 })
+        .to("[data-hero]", { opacity: 1, y: 0, duration: 0.6, stagger: 0.06 }, "-=0.6");
 
       // Content drifts away as the hero scrolls out.
       gsap.to(content.current, {

@@ -19,30 +19,33 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   doneRef.current = onDone;
 
   useEffect(() => {
-    if (reduced) {
+    if (reduced || (typeof window !== "undefined" && sessionStorage.getItem("portfolio_intro_seen"))) {
       doneRef.current();
       setGone(true);
       return;
     }
+    try {
+      sessionStorage.setItem("portfolio_intro_seen", "1");
+    } catch {}
 
     const state = { n: 0 };
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
       tl.to(state, {
         n: 100,
-        duration: 1.5,
+        duration: 0.55,
         ease: "power2.inOut",
         onUpdate: () => {
           if (counter.current)
             counter.current.textContent = String(Math.round(state.n)).padStart(3, "0");
         },
       })
-        .to(bar.current, { scaleX: 1, duration: 1.5, ease: "power2.inOut" }, 0)
-        .to(".pre-word", { yPercent: -110, duration: 0.5, ease: "power3.in", stagger: 0.04 })
+        .to(bar.current, { scaleX: 1, duration: 0.55, ease: "power2.inOut" }, 0)
+        .to(".pre-word", { yPercent: -110, duration: 0.25, ease: "power3.in", stagger: 0.02 })
         .add(() => doneRef.current())
         .to(root.current, {
           yPercent: -100,
-          duration: 0.95,
+          duration: 0.5,
           ease: "power4.inOut",
         }, "<0.05")
         .add(() => setGone(true));
